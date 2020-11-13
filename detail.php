@@ -11,6 +11,8 @@ $preference = new MercadoPago\Preference();
 // Crea un ítem en la preferencia
 $item = new MercadoPago\Item();
 $item->title = 'Mi producto';
+$item->description = 'Este es un producto de prueba';
+$item->picture_url = 'https://untani-mp-commerce-php.herokuapp.com/assets/003.jpg';
 $item->quantity = 1;
 $item->unit_price = 75.56;
 $preference->items = array($item);
