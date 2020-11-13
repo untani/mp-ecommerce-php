@@ -1,6 +1,6 @@
 <?php
 // SDK de Mercado Pago
-require __DIR__ .  '/vendor/autoload.php';
+require __DIR__ .  '/libs/vendor/autoload.php';
 
 // Agrega credenciales
 MercadoPago\SDK::setAccessToken('TEST-3987332595322522-111320-b883aa20c966e3fe0893c9b26ea250a7-143983039');
