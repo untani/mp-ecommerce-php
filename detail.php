@@ -19,7 +19,7 @@ $item->picture_url = 'https://untani-mp-commerce-php.herokuapp.com/assets/003.jp
 $item->quantity = 1;
 $item->curency_id = "MXN";
 $item->unit_price = 75.56;
-array_push($item, $item);
+array_push($items, $item);
 
 $item = new MercadoPago\Item();
 $item->title = 'Mi producto 2';
@@ -30,6 +30,10 @@ $item->curency_id = "MXN";
 $item->unit_price = 80.9;
 
 array_push($items, $item);
+
+// Imprimimos el array para visualizarlo NO DOM
+
+print_r($items);
 
 //  Cargamos los items a la preferencia
 
