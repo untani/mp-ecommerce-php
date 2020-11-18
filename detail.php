@@ -8,22 +8,34 @@ MercadoPago\SDK::setAccessToken('TEST-8806820013647028-111322-10ce932c254eaa1529
 // Crea un objeto de preferencia
 $preference = new MercadoPago\Preference();
 
+// Creamos un array para guardar los items
+$items = array();
+
 // Crea un ítem en la preferencia
 $item = new MercadoPago\Item();
 $item->title = 'Mi producto 1';
 $item->description = 'Este es un producto de prueba';
 $item->picture_url = 'https://untani-mp-commerce-php.herokuapp.com/assets/003.jpg';
 $item->quantity = 1;
+$item->curency_id = "MXN";
 $item->unit_price = 75.56;
-$preference->items = array($item);
+array_push($item, $item);
 
 $item = new MercadoPago\Item();
 $item->title = 'Mi producto 2';
 $item->description = 'Este es un producto de prueba 2';
 $item->picture_url = 'https://untani-mp-commerce-php.herokuapp.com/assets/003.jpg';
 $item->quantity = 2;
+$item->curency_id = "MXN";
 $item->unit_price = 80.9;
-$preference->items = array($item);
+
+array_push($items, $item);
+
+//  Cargamos los items a la preferencia
+
+$preference->items = $items;
+
+// Guardamos la preferecncia.
 $preference->save();
 
 
