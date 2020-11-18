@@ -16,7 +16,14 @@ $item->picture_url = 'https://untani-mp-commerce-php.herokuapp.com/assets/003.jp
 $item->quantity = 1;
 $item->unit_price = 75.56;
 $preference->items = array($item);
+
+$item->title = 'Mi producto 2';
+$item->quantity = 1;
+$item->unit_price = 80.9;
+$preference->items = array($item);
 $preference->save();
+
+
 ?>
 
 <!DOCTYPE html>
