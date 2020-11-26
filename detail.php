@@ -9,23 +9,17 @@ MercadoPago\SDK::setIntegratorId("dev_24c65fb163bf11ea96500242ac130004");
 $preference = new MercadoPago\Preference();
 
 // Agregamos el limite de cuotas y excluimos métodos de pago
+$preference->payment_methods = array(
+  "excluded_payment_methods" => array(
+    array("id" => "amex")
+  ),
+  "excluded_payment_types" => array(
+    array("id" => "atm")
+  ),
+  "installments" => 6
+);
 
 
-// Agregamos la información del payer
-  $payer = new MercadoPago\Payer();
-  $payer->name = "Lalo";
-  $payer->surname = "Landa";
-  $payer->email = "test_user_81131286@testuser.com";
-  $payer->phone = array(
-    "area_code" => "52",
-    "number" => "5549737300"
-  );
-  
-  $payer->address = array(
-    "street_name" => "Insurgentes Sur",
-    "street_number" => 1602,
-    "zip_code" => "03940"
-  );
 
 // Agregamos la información del producto
     $item = new MercadoPago\Item();
