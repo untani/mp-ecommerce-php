@@ -5,54 +5,6 @@ require __DIR__ .  '/libs/vendor/autoload.php';
 MercadoPago\SDK::setAccessToken('APP_USR-1159009372558727-072921-8d0b9980c7494985a5abd19fbe921a3d-617633181');
 MercadoPago\SDK::setIntegratorId("dev_24c65fb163bf11ea96500242ac130004");
 
-// Objeto de Prferencia
-$preference = new MercadoPago\Preference();
-
-// Agregamos el limite de cuotas y excluimos métodos de pago
-$preference->payment_methods = array(
-  "excluded_payment_methods" => array(
-    array("id" => "amex")
-  ),
-  "excluded_payment_types" => array(
-    array("id" => "atm")
-  ),
-  "installments" => 6
-);
-
-
-
-// Agregamos la información del producto
-    $item = new MercadoPago\Item();
-    $item->id = "1234";
-    $item->title = $_POST['title'];
-    $item->description = 'Dispositivo móvil de Tienda e-commerce';
-    $item->picture_url = $_POST['img'];
-    $item->quantity = 1;
-    $item->curency_id = "MXN";
-    $item->unit_price = $_POST['price'];
-
-// Agregamos la referencia externa
-    $preference->external_reference = "e.mendozaind@gmail.com";
-
-
-// Agregamos los retornos de dirección
-    $preference->back_urls = array(
-        "success" => "success.php",
-        "failure" => "failure.php",
-        "pending" => "pending.php"
-    );
-
-
-// Agregamos el auto-retorno
-    $preference->auto_return = "approved";
-
-
-//  Cargamos el item y la información del comprador a la preferencia
-    $preference->items = array($item);
-    $preference->payer = array($payer);
-
-// Guardamos la preferecncia.
-    $preference->save();
 
 
 ?>
