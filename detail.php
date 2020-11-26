@@ -8,16 +8,8 @@ MercadoPago\SDK::setIntegratorId("dev_24c65fb163bf11ea96500242ac130004");
 // Objeto de Prferencia
 $preference = new MercadoPago\Preference();
 
-// Agregamos el limite de cuotas 
-$preference->payment_methods = array(
-  "excluded_payment_methods" => array(
-    array("id" => "amex")
-  ),
-  "excluded_payment_types" => array(
-    array("id" => "atm")
-  ),
-  "installments" => 6
-);
+// Agregamos el limite de cuotas y excluimos métodos de pago
+
 
 // Agregamos la información del payer
   $payer = new MercadoPago\Payer();
@@ -39,7 +31,7 @@ $preference->payment_methods = array(
     $item = new MercadoPago\Item();
     $item->id = "1234";
     $item->title = $_POST['title'];
-    $item->description = 'Dispositivo móvil de Tienda e-commerce”';
+    $item->description = 'Dispositivo móvil de Tienda e-commerce';
     $item->picture_url = $_POST['img'];
     $item->quantity = 1;
     $item->curency_id = "MXN";
@@ -173,7 +165,7 @@ $preference->payment_methods = array(
                                             <div class="clearfix image-list xs-no-js as-util-relatedlink relatedlink" data-relatedlink="6|Powerbeats3 Wireless Earphones - Neighborhood Collection - Brick Red|MPXP2">
                                                 <div class="as-tilegallery-element as-image-selected">
                                                     <div class=""></div>
-                                                    <img src="./assets/003.jpg" class="ir ir item-image as-producttile-image" alt="" width="445" height="445" style="content:-webkit-image-set(url(<?php echo $_POST['img'] ?>) 2x);">
+                                                    <img src="./assets/003.jpg" class="ir ir item-image as-producttile-image" alt="" width="445" height="445" style="content:-webkit-image-set(url(<?php echo $_POST['img']; ?>) 2x);">
                                                 </div>
                                                 
                                             </div>
@@ -191,16 +183,16 @@ $preference->payment_methods = array(
                                         <div class="as-producttile-title">
                                             <h3 class="as-producttile-name">
                                                 <p class="as-producttile-tilelink">
-                                                    <span data-ase-truncate="2"><?php echo $_POST['title'] ?></span>
+                                                    <span data-ase-truncate="2"><?php echo $_POST['title']; ?></span>
                                                 </p>
 
                                             </h3>
                                         </div>
                                         <h3 >
-                                            <?php echo "$" . $_POST['price'] ?>
+                                            <?php echo "$" . $_POST['price']; ?>
                                         </h3>
                                         <h3 >
-                                            <?php echo $_POST['unit'] ?>
+                                            <?php echo $_POST['unit']; ?>
                                         </h3>
                                     </div>
                                     <script src="https://www.mercadopago.com.mx/integrations/v1/web-payment-checkout.js" data-preference-id="<?php echo $preference->id; ?>" data-button-label="“Pagar la compra"> </script>
