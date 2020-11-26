@@ -1,46 +1,73 @@
 <?php
 // SDK de Mercado Pago
 require __DIR__ .  '/libs/vendor/autoload.php';
+ia
+// Credenciales
+MercadoPago\SDK::setAccessToken('APP_USR-1159009372558727-072921-8d0b9980c7494985a5abd19fbe921a3d-617633181');
+MercadoPago\SDK::setIntegratorId("dev_24c65fb163bf11ea96500242ac130004");
 
-// Agrega credenciales
-MercadoPago\SDK::setAccessToken('TEST-8806820013647028-111322-10ce932c254eaa1529b886233bcafd29-672203895');
-
-// Crea un objeto de preferencia
+// Objeto de Prferencia
 $preference = new MercadoPago\Preference();
 
-// Creamos un array para guardar los items
-$items = array();
+// Agregamos el limite de cuotas 
+$preference->payment_methods = array(
+  "excluded_payment_methods" => array(
+    array("id" => "amex")
+  ),
+  "excluded_payment_types" => array(
+    array("id" => "atm")
+  ),
+  "installments" => 6
+);
 
-// Crea un ítem en la preferencia
-$item = new MercadoPago\Item();
-$item->title = 'Mi producto 1';
-$item->description = 'Este es un producto de prueba';
-$item->picture_url = 'https://untani-mp-commerce-php.herokuapp.com/assets/003.jpg';
-$item->quantity = 1;
-$item->curency_id = "MXN";
-$item->unit_price = 75.56;
-array_push($items, $item);
+// Agregamos la información del payer
+  $payer = new MercadoPago\Payer();
+  $payer->name = "Lalo";
+  $payer->surname = "Landa";
+  $payer->email = "test_user_81131286@testuser.com";
+  $payer->phone = array(
+    "area_code" => "52",
+    "number" => "5549737300"
+  );
+  
+  $payer->address = array(
+    "street_name" => "Insurgentes Sur",
+    "street_number" => 1602,
+    "zip_code" => "03940"
+  );
 
-$item = new MercadoPago\Item();
-$item->title = 'Mi producto 2';
-$item->description = 'Este es un producto de prueba 2';
-$item->picture_url = 'https://untani-mp-commerce-php.herokuapp.com/assets/003.jpg';
-$item->quantity = 2;
-$item->curency_id = "MXN";
-$item->unit_price = 80.9;
+// Agregamos la información del producto
+    $item = new MercadoPago\Item();
+    $item->id = "1234";
+    $item->title = $_POST['title'];
+    $item->description = 'Dispositivo móvil de Tienda e-commerce”';
+    $item->picture_url = $_POST['img'];
+    $item->quantity = 1;
+    $item->curency_id = "MXN";
+    $item->unit_price = $_POST['price'];
 
-array_push($items, $item);
+// Agregamos la referencia externa
+    $preference->external_reference = "e.mendozaind@gmail.com";
 
-// Imprimimos el array para visualizarlo NO DOM
 
-print_r($items);
+// Agregamos los retornos de dirección
+    $preference->back_urls = array(
+        "success" => "success.php",
+        "failure" => "failure.php",
+        "pending" => "pending.php"
+    );
 
-//  Cargamos los items a la preferencia
 
-$preference->items = $items;
+// Agregamos el auto-retorno
+    $preference->auto_return = "approved";
+
+
+//  Cargamos el item y la información del comprador a la preferencia
+    $preference->items = array($item);
+    $preference->payer = array($payer);
 
 // Guardamos la preferecncia.
-$preference->save();
+    $preference->save();
 
 
 ?>
@@ -171,13 +198,13 @@ $preference->save();
                                             </h3>
                                         </div>
                                         <h3 >
-                                            <?php echo $_POST['price'] ?>
+                                            <?php echo "$" . $_POST['price'] ?>
                                         </h3>
                                         <h3 >
-                                            <?php echo "$" . $_POST['unit'] ?>
+                                            <?php echo $_POST['unit'] ?>
                                         </h3>
                                     </div>
-                                    <script src="https://www.mercadopago.com.mx/integrations/v1/web-payment-checkout.js" data-preference-id="<?php echo $preference->id; ?>"> </script>
+                                    <script src="https://www.mercadopago.com.mx/integrations/v1/web-payment-checkout.js" data-preference-id="<?php echo $preference->id; ?>" data-button-label="“Pagar la compra"> </script>
                                 </div>
                             </div>
                         </div>
@@ -194,4 +221,6 @@ $preference->save();
             </div>
         </div>
 
-</div><div class="mp-mercadopago-checkout-wrapper" style="z-index:-2147483647;display:block;background:rgba(0, 0, 0, 0.7);border:0;overflow:hidden;visibility:hidden;margin:0;padding:0;position:fixed;left:0;top:0;width:0;opacity:0;height:0;transition:opacity 220ms ease-in;"> <svg class="mp-spinner" viewBox="25 25 50 50"> <circle class="mp-spinner-path" cx="50" cy="50" r="20" fill="none" stroke-miterlimit="10"></circle> </svg> </div><div class="mp-mercadopago-checkout-wrapper" style="z-index:-2147483647;display:block;background:rgba(0, 0, 0, 0.7);border:0;overflow:hidden;visibility:hidden;margin:0;padding:0;position:fixed;left:0;top:0;width:0;opacity:0;height:0;transition:opacity 220ms ease-in;"> <svg class="mp-spinner" viewBox="25 25 50 50"> <circle class="mp-spinner-path" cx="50" cy="50" r="20" fill="none" stroke-miterlimit="10"></circle> </svg> </div><div class="mp-mercadopago-checkout-wrapper" style="z-index:-2147483647;display:block;background:rgba(0, 0, 0, 0.7);border:0;overflow:hidden;visibility:hidden;margin:0;padding:0;position:fixed;left:0;top:0;width:0;opacity:0;height:0;transition:opacity 220ms ease-in;"> <svg class="mp-spinner" viewBox="25 25 50 50"> <circle class="mp-spinner-path" cx="50" cy="50" r="20" fill="none" stroke-miterlimit="10"></circle> </svg> </div><div class="mp-mercadopago-checkout-wrapper" style="z-index:-2147483647;display:block;background:rgba(0, 0, 0, 0.7);border:0;overflow:hidden;visibility:hidden;margin:0;padding:0;position:fixed;left:0;top:0;width:0;opacity:0;height:0;transition:opacity 220ms ease-in;"> <svg class="mp-spinner" viewBox="25 25 50 50"> <circle class="mp-spinner-path" cx="50" cy="50" r="20" fill="none" stroke-miterlimit="10"></circle> </svg> </div><div class="mp-mercadopago-checkout-wrapper" style="z-index:-2147483647;display:block;background:rgba(0, 0, 0, 0.7);border:0;overflow:hidden;visibility:hidden;margin:0;padding:0;position:fixed;left:0;top:0;width:0;opacity:0;height:0;transition:opacity 220ms ease-in;"> <svg class="mp-spinner" viewBox="25 25 50 50"> <circle class="mp-spinner-path" cx="50" cy="50" r="20" fill="none" stroke-miterlimit="10"></circle> </svg> </div><div class="mp-mercadopago-checkout-wrapper" style="z-index:-2147483647;display:block;background:rgba(0, 0, 0, 0.7);border:0;overflow:hidden;visibility:hidden;margin:0;padding:0;position:fixed;left:0;top:0;width:0;opacity:0;height:0;transition:opacity 220ms ease-in;"> <svg class="mp-spinner" viewBox="25 25 50 50"> <circle class="mp-spinner-path" cx="50" cy="50" r="20" fill="none" stroke-miterlimit="10"></circle> </svg> </div><div id="ac-gn-viewport-emitter"> </div></body></html>
+</div><div class="mp-mercadopago-checkout-wrapper" style="z-index:-2147483647;display:block;background:rgba(0, 0, 0, 0.7);border:0;overflow:hidden;visibility:hidden;margin:0;padding:0;position:fixed;left:0;top:0;width:0;opacity:0;height:0;transition:opacity 220ms ease-in;"> <svg class="mp-spinner" viewBox="25 25 50 50"> <circle class="mp-spinner-path" cx="50" cy="50" r="20" fill="none" stroke-miterlimit="10"></circle> </svg> </div><div class="mp-mercadopago-checkout-wrapper" style="z-index:-2147483647;display:block;background:rgba(0, 0, 0, 0.7);border:0;overflow:hidden;visibility:hidden;margin:0;padding:0;position:fixed;left:0;top:0;width:0;opacity:0;height:0;transition:opacity 220ms ease-in;"> <svg class="mp-spinner" viewBox="25 25 50 50"> <circle class="mp-spinner-path" cx="50" cy="50" r="20" fill="none" stroke-miterlimit="10"></circle> </svg> </div><div class="mp-mercadopago-checkout-wrapper" style="z-index:-2147483647;display:block;background:rgba(0, 0, 0, 0.7);border:0;overflow:hidden;visibility:hidden;margin:0;padding:0;position:fixed;left:0;top:0;width:0;opacity:0;height:0;transition:opacity 220ms ease-in;"> <svg class="mp-spinner" viewBox="25 25 50 50"> <circle class="mp-spinner-path" cx="50" cy="50" r="20" fill="none" stroke-miterlimit="10"></circle> </svg> </div><div class="mp-mercadopago-checkout-wrapper" style="z-index:-2147483647;display:block;background:rgba(0, 0, 0, 0.7);border:0;overflow:hidden;visibility:hidden;margin:0;padding:0;position:fixed;left:0;top:0;width:0;opacity:0;height:0;transition:opacity 220ms ease-in;"> <svg class="mp-spinner" viewBox="25 25 50 50"> <circle class="mp-spinner-path" cx="50" cy="50" r="20" fill="none" stroke-miterlimit="10"></circle> </svg> </div><div class="mp-mercadopago-checkout-wrapper" style="z-index:-2147483647;display:block;background:rgba(0, 0, 0, 0.7);border:0;overflow:hidden;visibility:hidden;margin:0;padding:0;position:fixed;left:0;top:0;width:0;opacity:0;height:0;transition:opacity 220ms ease-in;"> <svg class="mp-spinner" viewBox="25 25 50 50"> <circle class="mp-spinner-path" cx="50" cy="50" r="20" fill="none" stroke-miterlimit="10"></circle> </svg> </div><div class="mp-mercadopago-checkout-wrapper" style="z-index:-2147483647;display:block;background:rgba(0, 0, 0, 0.7);border:0;overflow:hidden;visibility:hidden;margin:0;padding:0;position:fixed;left:0;top:0;width:0;opacity:0;height:0;transition:opacity 220ms ease-in;"> <svg class="mp-spinner" viewBox="25 25 50 50"> <circle class="mp-spinner-path" cx="50" cy="50" r="20" fill="none" stroke-miterlimit="10"></circle> </svg> </div><div id="ac-gn-viewport-emitter"> </div>
+<script src="https://www.mercadopago.com/v2/security.js" view="item"></script>
+</body></html>
