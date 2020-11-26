@@ -61,7 +61,12 @@ $preference->payment_methods = array(
     $preference->auto_return = "approved";
 
 
+//  Cargamos el item y la información del comprador a la preferencia
+    $preference->items = array($item);
 
+
+// Guardamos la preferecncia.
+    $preference->save();
 
 
 ?>
