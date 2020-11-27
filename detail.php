@@ -56,9 +56,9 @@ $preference->payment_methods = array(
 
 // Agregamos los retornos de dirección
     $preference->back_urls = array(
-        "success" => "success.php",
-        "failure" => "failure.php",
-        "pending" => "pending.php"
+        "success" => "https://untani-mp-commerce-php.herokuapp.com/success.php",
+        "failure" => "https://untani-mp-commerce-php.herokuapp.com/failure.php",
+        "pending" => "https://untani-mp-commerce-php.herokuapp.com/pending.php"
     );
 
 
