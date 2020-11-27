@@ -71,7 +71,7 @@ $preference->payment_methods = array(
     $preference->payer = $payer;
 
 // Por ultimo configuramos la dirección para las notificaciones
-    $preference->notification_url="https://untani-mp-commerce-php.herokuapp.com/endpoint.php";
+    $preference->notification_url="https://6309f8679e600877f0d80abdfbfbf2b4.m.pipedream.net";
 
 // Guardamos la preferecncia.
     $preference->save();
