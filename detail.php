@@ -213,7 +213,9 @@ $preference->payment_methods = array(
                                             <?php echo $_POST['unit']; ?>
                                         </h3>
                                     </div>
-                                    <button type="submit" class="mercadopago-button" formmethod="post">Pagar la compra</button>
+                                    <?php 
+                                        echo "<a href='$preference->init_point'> <button type='button' class='mercadopago-button' formmethod='post'>Pagar la compra</button> </a>";
+                                    ?>
                                 </div>
                             </div>
                         </div>
