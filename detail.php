@@ -63,12 +63,15 @@ $preference->payment_methods = array(
 
 
 // Agregamos el auto-retorno
-    $preference->auto_return = "approved";
+    $preference->auto_return = "approved"; 
 
 
 //  Cargamos el item y la información del comprador a la preferencia
     $preference->items = array($item);
     $preference->payer = $payer;
+
+// Por ultimo configuramos la dirección para las notificaciones
+    $preference->notification_url="https://6309f8679e600877f0d80abdfbfbf2b4.m.pipedream.net";
 
 // Guardamos la preferecncia.
     $preference->save();
